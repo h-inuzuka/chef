@@ -1,9 +1,7 @@
 {
   "run_list": [
     "recipe[update_repository]",
-    "recipe[dstat]",
-    "recipe[apache]",
-    "recipe[mysql]",
+    "recipe[setup]",
     "recipe[java7]",
     "recipe[tomcat7]"
   ],
