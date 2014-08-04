@@ -1,9 +1,7 @@
 {
   "run_list": [
     "recipe[update_repository]",
-    "recipe[setup]",
-    "recipe[java7]",
-    "recipe[tomcat7]"
+    "recipe[setup]"
   ],
   "automatic": {
     "ipaddress": "webdb"
