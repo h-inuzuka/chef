@@ -31,6 +31,15 @@ bash "install tomcat" do
     sudo yum -y update --nogpgcheck
     sudo yum -y install tomcat7 tomcat7-webapps tomcat7-admin-webapps --nogpgcheck
   EOC
+  creates "/etc/init.d/tomcat7"
+end
+
+cookbook_file "/usr/share/tomcat7/webapps/openam.war" do
+  source "openam.war"
+  owner 'tomcat'
+  group 'tomcat'
+  mode '00644'
+  action :create
 end
 
 service "tomcat7" do
