@@ -6,10 +6,34 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-package "tomcat6" do
-  action [ :install, :upgrade ]
+
+user "tomcat" do
+  comment "tomcat user"
+  home "/home/tomcat"
+  shell "/bin/false"
+  password nil
+  supports :manage_home => true
+  action [ :create, :manage] 
 end
 
-service "tomcat6" do
-  action [ :enable, :start ]
+
+group "tomcat" do
+  members [ 'tomcat'  ]
+  action :create
 end
+
+
+bash "install tomcat" do
+  code <<-EOC
+    sudo yum -y install yum-plugin-priorities
+    sudo rpm -Uvh http://mirrors.dotsrc.org/jpackage/6.0/generic/free/RPMS/jpackage-release-6-3.jpp6.noarch.rpm
+    sudo yum clean all
+    sudo yum -y update --nogpgcheck
+    sudo yum -y install tomcat7 tomcat7-webapps tomcat7-admin-webapps --nogpgcheck
+  EOC
+end
+
+service "tomcat7" do
+  action [ :enable, :start  ]
+end
+
