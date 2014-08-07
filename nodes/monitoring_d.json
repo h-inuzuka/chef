@@ -1,0 +1,9 @@
+{
+  "run_list": [
+    "recipe[java7]",
+    "recipe[tomcat7]"
+  ],
+  "automatic": {
+    "ipaddress": "monitoring_d"
+  }
+}

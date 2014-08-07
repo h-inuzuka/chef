@@ -25,11 +25,11 @@ end
 
 bash "install tomcat" do
   code <<-EOC
-    sudo yum -y install yum-plugin-priorities
-    sudo rpm -Uvh http://mirrors.dotsrc.org/jpackage/6.0/generic/free/RPMS/jpackage-release-6-3.jpp6.noarch.rpm
-    sudo yum clean all
-    sudo yum -y update --nogpgcheck
-    sudo yum -y install tomcat7 tomcat7-webapps tomcat7-admin-webapps --nogpgcheck
+    yum -y install yum-plugin-priorities
+    rpm -Uvh http://mirrors.dotsrc.org/jpackage/6.0/generic/free/RPMS/jpackage-release-6-3.jpp6.noarch.rpm
+    yum clean all
+    yum -y update --nogpgcheck
+    yum -y install tomcat7 tomcat7-webapps tomcat7-admin-webapps --nogpgcheck
   EOC
   creates "/etc/init.d/tomcat7"
 end
@@ -46,3 +46,9 @@ service "tomcat7" do
   action [ :enable, :start  ]
 end
 
+bash "iptables 8080" do
+  code <<-EOC
+    iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+    /etc/init.d/iptables restart
+  EOC
+end

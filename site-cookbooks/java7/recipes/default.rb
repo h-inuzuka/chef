@@ -6,13 +6,10 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-#package "java-1.7.0-openjdk.x86_64" do
-#  action :install
-#end
-
 
 bash "installjava" do
   code <<-EOC
-    sudo yum -y install java-1.7.0-openjdk.x86_64
+    yum -y install java-1.7.0-openjdk.x86_64
+#    sudo yum -y install java-1.7.0-openjdk.x86_64
   EOC
 end
